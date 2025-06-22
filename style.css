@@ -1,0 +1,33 @@
+body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+#map {
+    height: 60vh;
+}
+.filters {
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+    flex-wrap: wrap;
+}
+.filters button {
+    padding: 5px 10px;
+    border: none;
+    background: #ddd;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.filters button.active {
+    background: #007bff;
+    color: white;
+}
+.places {
+    padding: 10px;
+}
+.place {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+}

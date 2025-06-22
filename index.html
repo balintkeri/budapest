@@ -5,41 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Budapest Guide</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <style>
-    body {
-      font-family: sans-serif;
-      margin: 0;
-      padding: 0;
-    }
-    #map {
-      height: 60vh;
-    }
-    .filters {
-      display: flex;
-      gap: 10px;
-      padding: 10px;
-      flex-wrap: wrap;
-    }
-    .filters button {
-      padding: 5px 10px;
-      border: none;
-      background: #ddd;
-      cursor: pointer;
-      border-radius: 4px;
-    }
-    .filters button.active {
-      background: #007bff;
-      color: white;
-    }
-    .places {
-      padding: 10px;
-    }
-    .place {
-      margin-bottom: 10px;
-      border-bottom: 1px solid #eee;
-      padding-bottom: 5px;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <h1 style="text-align:center">Budapest Guide</h1>
@@ -48,88 +14,6 @@
   <div class="places" id="places"></div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script>
-    const map = L.map('map').setView([47.4979, 19.0402], 13);
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
-
-    const places = [
-      {
-        name: "Paprika Étterem",
-        type: ["kaja", "magyar"],
-        lat: 47.5073,
-        lng: 19.0841,
-        description: "Hagyományos magyar ételek barátságos áron.",
-        link: "https://paprikaetterem.hu"
-      },
-      {
-        name: "Szimpla Kert",
-        type: ["pia", "látványosság"],
-        lat: 47.4969,
-        lng: 19.0657,
-        description: "Ikonikus romkocsma Budapest szívében.",
-        link: "https://szimpla.hu"
-      },
-      {
-        name: "Fisherman's Bastion",
-        type: ["látványosság"],
-        lat: 47.5026,
-        lng: 19.0347,
-        description: "Gyönyörű kilátás a városra a Halászbástyáról.",
-        link: "https://www.budapest.com/..."
-      }
-    ];
-
-    const markers = [];
-    const activeFilters = new Set();
-
-    const allTags = [...new Set(places.flatMap(p => p.type))];
-    const filterContainer = document.getElementById('filters');
-
-    allTags.forEach(tag => {
-      const btn = document.createElement('button');
-      btn.textContent = tag;
-      btn.addEventListener('click', () => {
-        if (activeFilters.has(tag)) {
-          activeFilters.delete(tag);
-          btn.classList.remove('active');
-        } else {
-          activeFilters.add(tag);
-          btn.classList.add('active');
-        }
-        render();
-      });
-      filterContainer.appendChild(btn);
-    });
-
-    function render() {
-      // clear markers
-      markers.forEach(m => map.removeLayer(m));
-      markers.length = 0;
-
-      const list = document.getElementById('places');
-      list.innerHTML = '';
-
-      const filtered = places.filter(p => {
-        if (activeFilters.size === 0) return true;
-        return [...activeFilters].some(tag => p.type.includes(tag));
-      });
-
-      filtered.forEach(place => {
-        const marker = L.marker([place.lat, place.lng]).addTo(map);
-        marker.bindPopup(`<b>${place.name}</b><br>${place.description}`);
-        markers.push(marker);
-
-        const div = document.createElement('div');
-        div.className = 'place';
-        div.innerHTML = `<strong>${place.name}</strong><br>${place.description}<br><a href="${place.link}" target="_blank">Link</a>`;
-        list.appendChild(div);
-      });
-    }
-
-    render();
-  </script>
+  <script src="code.js"></script>
 </body>
 </html>
